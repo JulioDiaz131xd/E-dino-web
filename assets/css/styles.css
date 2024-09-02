@@ -1,0 +1,191 @@
+/* Reset de márgenes y fuentes */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.logout-info {
+    display: flex;
+    align-items: center;
+}
+
+.logout-form {
+    margin-right: 15px;
+}
+
+.user-info {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    color: #000;
+}
+
+.user-role {
+    color: #007bff; /* Color distintivo para el rol */
+    font-weight: bold;
+    font-size: 1em; /* Ajustado a un tamaño de fuente razonable */
+}
+
+.header-buttons button {
+    background-color: transparent;
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+/* Nueva clase para el section con imagen a pantalla completa */
+.hero.fullscreen {
+    position: relative;
+    width: 100vw; /* Ancho completo de la ventana del navegador */
+    height: 100vh; /* Altura completa de la ventana del navegador */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background: url('../assets/images/img2.svg') no-repeat center center/cover; /* Imagen específica para este section */
+}
+
+.hero.fullscreen img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin distorsión */
+    z-index: -1; /* Coloca la imagen detrás del contenido del section */
+}
+
+.hero.fullscreen h1,
+.hero.fullscreen p {
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté por encima de la imagen */
+    color: white; /* Opcional: Cambia el color del texto para que contraste con la imagen */
+}
+
+/* Clase base para otras secciones hero */
+.hero {
+    background: url('../images/img1.svg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 4em; /* Ajustado para mejor responsividad */
+}
+
+.hero p {
+    font-size: 2em; /* Ajustado para mejor responsividad */
+    margin: 10px 0;
+}
+
+.hero button {
+    background-color: #9900ff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.5em; /* Ajustado para mejor responsividad */
+    border-radius: 10px;
+}
+
+.about, .mission {
+    padding: 40px 20px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 20px;
+    flex-wrap: wrap; /* Asegura que el contenido se ajuste en pantallas pequeñas */
+}
+
+.text {
+    max-width: 600px;
+}
+
+.about h2, .mission h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.about p, .mission p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.about img, .mission img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+/* Nueva clase de difuminado simplificada */
+.blur-effect {
+    filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5); /* Ajustado para una mejor visibilidad */
+}
+
+/* Añadir animaciones básicas */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero.fade-int {        
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none; /* Esto bloquea la interacción con la página de fondo */
+}
+
