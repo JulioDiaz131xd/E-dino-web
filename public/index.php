@@ -14,7 +14,6 @@ session_start();
     <link rel="icon" href="../assets/images/logo.ico">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
 </head>
-
 <body>
     <?php
     include '../includes/header.php';
@@ -36,8 +35,8 @@ session_start();
             <p>y se parte del cambio mas significativo de la educacion.</p>
         </section>
         <section class="hero fade-ints">
-            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
-            <spline-viewer url="https://prod.spline.design/Sl3NR0TU1c4QsBWI/scene.splinecode"></spline-viewer>
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/AhMmmMlzKudqGwu0/scene.splinecode"></spline-viewer>
         </section>
     </main>
     <?php include '../includes/footer.php'; ?>
@@ -58,5 +57,4 @@ session_start();
         });
     </script>
 </body>
-
 </html>
