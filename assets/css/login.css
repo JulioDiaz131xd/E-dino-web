@@ -1,0 +1,182 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgb(0, 51, 102), rgb(163, 252, 175));
+}
+
+.login-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 70px; /* Espacio superior para el header fijo */
+    flex: 1; /* Asegura que el contenido principal se expanda */
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: fadeInSlideUp 1s ease-in-out;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(163, 252, 175);
+    font-size: 1.8em;
+    animation: textPop 0.6s ease-in-out;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative;
+    animation: inputAppear 0.8s ease-in-out;
+}
+
+.input-group label {
+    font-size: 1em;
+    color: rgb(163, 252, 175);
+    margin-bottom: 5px;
+    display: block;
+    opacity: 0.8;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgb(0, 51, 102);
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.input-group input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.login-btn {
+    background-color: rgb(255, 140, 0);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: buttonPop 1s ease-in-out;
+}
+
+.login-btn:hover {
+    background-color: rgb(255, 99, 71);
+    transform: scale(1.05);
+}
+
+a {
+    color: rgb(255, 140, 0);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    animation: linkSlideIn 0.6s ease-in-out;
+}
+
+a:hover {
+    color: rgb(255, 99, 71);
+    transform: scale(1.02);
+}
+
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes inputAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes buttonPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes linkSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Mensajes de error */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    animation: errorShake 0.5s ease-in-out;
+}
+
+@keyframes errorShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+}
