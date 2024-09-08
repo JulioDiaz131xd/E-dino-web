@@ -40,7 +40,7 @@ if ($stmt->num_rows === 0) {
 }
 $stmt->close();
 
-// Manejo de la creación de exámenes
+// Manejo de la creación de exámenes y materiales
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'create_exam') {
         $exam_name = $_POST['exam-name'];
@@ -67,6 +67,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         } else {
             echo json_encode(['success' => false, 'error' => $stmt->error]);
         }
+        $stmt->close();
+    }
+
+    // Ver miembros de la clase
+    if ($_POST['action'] === 'ver_miembros') {
+        $query = "SELECT id, nombre, apellidos, (CASE WHEN id = (SELECT creador_id FROM clases WHERE id = ?) THEN 1 ELSE 0 END) as es_creador FROM usuarios WHERE id IN (SELECT usuario_id FROM membresias WHERE clase_id = ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('ii', $clase_id, $clase_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $miembros = [];
+        while ($row = $result->fetch_assoc()) {
+            $miembros[] = $row;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'miembros' => $miembros
+        ]);
         $stmt->close();
     }
 }
@@ -102,15 +122,14 @@ $conn->close();
             <p><?php echo htmlspecialchars($descripcion_clase); ?></p>
         </section>
 
-        <!-- Parte del HTML en gestionar_clase.php -->
+        <!-- Acciones -->
         <section class="class-actions">
             <button id="create-exam-btn" class="action-btn"
                 onclick="window.location.href='customize_exam.php?clase_id=<?php echo $clase_id; ?>'">Crear
                 Examen</button>
             <button id="create-class-material-btn" class="action-btn">Crear Material de Clase</button>
+            <button id="view-members-btn" class="action-btn">Ver Miembros</button>
         </section>
-
-
 
         <!-- Modales -->
         <div class="modal" id="create-exam-modal">
@@ -146,6 +165,16 @@ $conn->close();
                     </div>
                     <button type="submit" class="submit-btn">Crear Material</button>
                 </form>
+            </div>
+        </div>
+
+        <!-- Modal para miembros -->
+        <div class="modal" id="members-modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" id="close-members-modal">&times;</span>
+                <h2>Miembros de la clase</h2>
+                <ul id="members-list"></ul>
+                <button id="close-members-modal" class="action-btn">Cerrar</button>
             </div>
         </div>
     </main>
