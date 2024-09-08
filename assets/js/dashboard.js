@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(data.message);
             if (data.status === 'success') {
                 joinClassModal.style.display = 'none';
-                location.reload(); // Recargar la página para mostrar la nueva clase
+                // Redirigir a la página de gestión de la clase después de unirse
+                window.location.href = `gestionar_clase.php?clase_id=${data.clase_id}`;
             }
         })
         .catch(error => console.error('Error:', error));

@@ -1,0 +1,51 @@
+/* Estilo para los labels */
+label {
+    display: block;
+    margin-bottom: 0.5em; /* Espacio debajo del label */
+    font-family: var(--font-family);
+    color: var(--text-color);
+}
+
+/* Estilo para los inputs de texto */
+input[type="text"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em; /* Espacio entre inputs */
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+/* Estilo para los botones */
+.button {
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    margin: 0.5em 0;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--secondary-color);
+}
+
+.button:active {
+    background-color: var(--primary-color);
+}
+
+/* Estilo para el botón de agregar más preguntas */
+#addMoreQuestions {
+    background-color: var(--success-color);
+}
+
+#addMoreQuestions:hover {
+    background-color: #388e3c; /* Verde más oscuro para hover */
+}
