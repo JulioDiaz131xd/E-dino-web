@@ -1,43 +1,28 @@
 <?php
 session_start();
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Conexión a la base de datos
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "e_dino";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
+    // Crear instancia de la clase User
+    $user = new User();
 
     // Obtener y sanitizar los datos del formulario
-    $nombre = $conn->real_escape_string(trim($_POST['nombre']));
-    $email = $conn->real_escape_string(trim($_POST['email']));
-    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+    $nombre = trim($_POST['nombre']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
     $rol = (int)$_POST['rol'];
 
     // Verificar si el correo ya está registrado
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM usuarios WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->bind_result($count);
-    $stmt->fetch();
-    $stmt->close();
-
-    if ($count > 0) {
+    if ($user->emailExists($email)) {
         $error = "El correo electrónico ya está registrado.";
     } else {
-        // Insertar el nuevo usuario en la base de datos
-        $stmt = $conn->prepare("INSERT INTO usuarios (nombre, email, password, rol_id) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sssi", $nombre, $email, $password, $rol);
+        // Crear nuevo usuario
+        $userId = $user->createUser($nombre, $email, $password, $rol);
 
-        if ($stmt->execute()) {
+        if ($userId) {
             // Iniciar sesión automáticamente
-            $_SESSION['user_id'] = $stmt->insert_id;
+            $_SESSION['user_id'] = $userId;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['rol_id'] = $rol;
 
@@ -47,11 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = "Hubo un problema al registrarte. Por favor, inténtalo de nuevo.";
         }
-
-        $stmt->close();
     }
 
-    $conn->close();
+    // Cerrar la conexión a la base de datos
+    $user->closeConnection();
 }
 ?>
 
