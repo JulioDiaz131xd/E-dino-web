@@ -5,73 +5,34 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+require_once __DIR__ . '/../core/models/manage_classes.php';
+
 $usuario_id = $_SESSION['user_id'];
 $clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "e_dino";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+// Instanciar la clase User
+$user = new User();
 
 // Obtener detalles de la clase
-$stmt = $conn->prepare("SELECT nombre, descripcion FROM clases WHERE id = ?");
-$stmt->bind_param("i", $clase_id);
-$stmt->execute();
-$stmt->bind_result($nombre_clase, $descripcion_clase);
-$stmt->fetch();
-$stmt->close();
-
-// Verificar si el usuario está inscrito en la clase
-$stmt = $conn->prepare("SELECT id FROM clases_usuarios WHERE usuario_id = ? AND clase_id = ?");
-$stmt->bind_param("ii", $usuario_id, $clase_id);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows === 0) {
+$clase_detalles = $user->getClassDetails($clase_id);
+if (!$clase_detalles) {
+    // Si la clase no existe, redirige al dashboard
     header("Location: dashboard.php");
     exit();
 }
-$stmt->close();
+$nombre_clase = $clase_detalles['nombre'];
+$descripcion_clase = $clase_detalles['descripcion'];
 
-// Manejo de la creación de exámenes
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    if ($_POST['action'] === 'create_exam') {
-        $exam_name = $_POST['exam-name'];
-        $exam_description = $_POST['exam-description'];
-
-        $stmt = $conn->prepare("INSERT INTO examenes (nombre, descripcion, clase_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $exam_name, $exam_description, $clase_id);
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => $stmt->error]);
-        }
-        $stmt->close();
-    }
-
-    if ($_POST['action'] === 'create_material') {
-        $material_title = $_POST['material-title'];
-        $material_description = $_POST['material-description'];
-
-        $stmt = $conn->prepare("INSERT INTO materiales_clase (titulo, descripcion, clase_id) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $material_title, $material_description, $clase_id);
-        if ($stmt->execute()) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => $stmt->error]);
-        }
-        $stmt->close();
-    }
+// Verificar si el usuario está inscrito en la clase
+if (!$user->isUserInClass($usuario_id, $clase_id)) {
+    header("Location: dashboard.php");
+    exit();
 }
 
-$conn->close();
+// Obtener miembros de la clase
+$miembros_clase = $user->getClassMembers($clase_id);
+
+$user->closeConnection();
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +46,6 @@ $conn->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
-
 <body>
     <header class="header">
         <h1><?php echo htmlspecialchars($nombre_clase); ?></h1>
@@ -102,7 +62,6 @@ $conn->close();
             <p><?php echo htmlspecialchars($descripcion_clase); ?></p>
         </section>
 
-        <!-- Parte del HTML en gestionar_clase.php -->
         <section class="class-actions">
             <button id="create-exam-btn" class="action-btn"
                 onclick="window.location.href='customize_exam.php?clase_id=<?php echo $clase_id; ?>'">Crear
@@ -110,7 +69,30 @@ $conn->close();
             <button id="create-class-material-btn" class="action-btn">Crear Material de Clase</button>
         </section>
 
-
+        <!-- Sección para mostrar los miembros de la clase -->
+        <section class="class-members">
+            <h2>Miembros de la Clase</h2>
+            <?php if (count($miembros_clase) > 0): ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($miembros_clase as $miembro): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($miembro['nombre']); ?></td>
+                                <td><?php echo htmlspecialchars($miembro['email']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No hay miembros en esta clase.</p>
+            <?php endif; ?>
+        </section>
 
         <!-- Modales -->
         <div class="modal" id="create-exam-modal">

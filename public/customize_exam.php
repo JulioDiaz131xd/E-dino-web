@@ -5,42 +5,33 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+require_once __DIR__ . '/../assets/models/User.php';
+
 $usuario_id = $_SESSION['user_id'];
 $clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "e_dino";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+// Instanciar la clase User
+$user = new User();
 
 // Obtener detalles de la clase
-$stmt = $conn->prepare("SELECT nombre, descripcion FROM clases WHERE id = ?");
-$stmt->bind_param("i", $clase_id);
-$stmt->execute();
-$stmt->bind_result($nombre_clase, $descripcion_clase);
-$stmt->fetch();
-$stmt->close();
-
-// Verificar si el usuario está inscrito en la clase
-$stmt = $conn->prepare("SELECT id FROM clases_usuarios WHERE usuario_id = ? AND clase_id = ?");
-$stmt->bind_param("ii", $usuario_id, $clase_id);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows === 0) {
+$clase_detalles = $user->getClassDetails($clase_id);
+if (!$clase_detalles) {
+    // Si la clase no existe, redirige al dashboard
     header("Location: dashboard.php");
     exit();
 }
-$stmt->close();
+$nombre_clase = $clase_detalles['nombre'];
+$descripcion_clase = $clase_detalles['descripcion'];
 
-$conn->close();
+// Verificar si el usuario está inscrito en la clase
+if (!$user->isUserInClass($usuario_id, $clase_id)) {
+    header("Location: dashboard.php");
+    exit();
+}
+
+$user->closeConnection();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

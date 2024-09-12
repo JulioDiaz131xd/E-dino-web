@@ -1,4 +1,3 @@
-/* Variables de colores */
 :root {
     --primary-color: #00aaff;
     --secondary-color: #00ffd5;
@@ -11,7 +10,6 @@
     --font-family: 'Roboto', sans-serif;
 }
 
-/* Estilos globales */
 * {
     box-sizing: border-box;
     margin: 0;

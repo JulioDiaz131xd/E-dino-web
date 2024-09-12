@@ -5,143 +5,58 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+require_once __DIR__ . '/../core/models/class.php';
+
+// Obtener ID de usuario desde la sesión
 $usuario_id = $_SESSION['user_id'];
 
-// Conexión a la base de datos
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "e_dino";
+// Instanciar la clase User
+$user = new User();
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Obtener el nombre del usuario
+$nombre_usuario = $user->getUserNameById($usuario_id);
 
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+// Obtener las clases del usuario
+$clases = $user->getUserClasses($usuario_id);
 
-// Obtener nombre del usuario
-$stmt = $conn->prepare("SELECT nombre FROM usuarios WHERE id = ?");
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$stmt->bind_result($nombre_usuario);
-$stmt->fetch();
-$stmt->close();
+// Obtener progreso de las clases
+$progreso = $user->getUserClassProgress($usuario_id);
 
-// Obtener clases del usuario
-$stmt = $conn->prepare("SELECT c.id, c.nombre, c.descripcion, c.codigo
-                        FROM clases c
-                        JOIN clases_usuarios cu ON c.id = cu.clase_id
-                        WHERE cu.usuario_id = ?");
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$result_clases = $stmt->get_result();
-$clases = [];
-while ($row = $result_clases->fetch_assoc()) {
-    $clases[] = $row;
-}
-$stmt->close();
+// Convertir arrays en formato JSON para el JavaScript
+$clases_nombres_json = json_encode(array_column($progreso, 'nombre'));
+$progreso_valores_json = json_encode(array_column($progreso, 'progreso'));
 
 // Crear una clase
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
     $nombre = $_POST['class-name'];
     $descripcion = $_POST['class-description'];
-    $codigo = substr(md5(uniqid(mt_rand(), true)), 0, 8); // Genera un código único
-    $creador_id = $usuario_id;
+    
+    $codigo = $user->createClass($usuario_id, $nombre, $descripcion);
 
-    $stmt = $conn->prepare("INSERT INTO clases (nombre, descripcion, codigo, creador_id) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sssi", $nombre, $descripcion, $codigo, $creador_id);
-
-    if ($stmt->execute()) {
-        $clase_id = $stmt->insert_id;
-        // Unir al creador a la clase
-        $stmt = $conn->prepare("INSERT INTO clases_usuarios (usuario_id, clase_id) VALUES (?, ?)");
-        $stmt->bind_param("ii", $usuario_id, $clase_id);
-        $stmt->execute();
-
+    if ($codigo) {
         echo json_encode(['status' => 'success', 'message' => 'Clase creada exitosamente.', 'codigo' => $codigo]);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Error al crear la clase.']);
     }
-
     exit();
 }
 
 // Unirse a una clase
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'unirse_clase') {
     $codigo = $_POST['class-code'];
+    $result = $user->joinClassByCode($usuario_id, $codigo);
 
-    // Buscar la clase por código
-    $stmt = $conn->prepare("SELECT id FROM clases WHERE codigo = ?");
-    $stmt->bind_param("s", $codigo);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($clase_id);
-        $stmt->fetch();
-
-        // Verificar si el usuario ya está inscrito en la clase
-        $stmt = $conn->prepare("SELECT id FROM clases_usuarios WHERE usuario_id = ? AND clase_id = ?");
-        $stmt->bind_param("ii", $usuario_id, $clase_id);
-        $stmt->execute();
-        $stmt->store_result();
-
-        if ($stmt->num_rows === 0) {
-            // Unir al usuario a la clase
-            $stmt = $conn->prepare("INSERT INTO clases_usuarios (usuario_id, clase_id) VALUES (?, ?)");
-            $stmt->bind_param("ii", $usuario_id, $clase_id);
-            if ($stmt->execute()) {
-                echo json_encode(['status' => 'success', 'message' => 'Te has unido a la clase exitosamente.']);
-            } else {
-                echo json_encode(['status' => 'error', 'message' => 'Error al unirse a la clase.']);
-            }
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Ya estás inscrito en esta clase.']);
-        }
+    if ($result === 'success') {
+        echo json_encode(['status' => 'success', 'message' => 'Te has unido a la clase exitosamente.']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Código de clase no encontrado.']);
+        echo json_encode(['status' => 'error', 'message' => $result]);
     }
-
     exit();
 }
 
-// Obtener clases del usuario
-$stmt = $conn->prepare("SELECT c.id, c.nombre, c.descripcion, c.codigo
-                        FROM clases c
-                        JOIN clases_usuarios cu ON c.id = cu.clase_id
-                        WHERE cu.usuario_id = ?");
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$result_clases = $stmt->get_result();
-$clases = [];
-while ($row = $result_clases->fetch_assoc()) {
-    $clases[] = $row;
-}
-$stmt->close();
-
-// Obtener progreso de las clases
-$stmt = $conn->prepare("SELECT c.nombre, pc.progreso
-                        FROM progreso_clases pc
-                        JOIN clases c ON pc.clase_id = c.id
-                        WHERE pc.usuario_id = ?");
-$stmt->bind_param("i", $usuario_id);
-$stmt->execute();
-$result_progreso = $stmt->get_result();
-
-$clases_nombres = [];
-$progreso_valores = [];
-
-while ($row = $result_progreso->fetch_assoc()) {
-    $clases_nombres[] = $row['nombre'];
-    $progreso_valores[] = $row['progreso'];
-}
-
-// Convertir arrays en formato JSON para pasarlos al JavaScript
-$clases_nombres_json = json_encode($clases_nombres);
-$progreso_valores_json = json_encode($progreso_valores);
-
-$conn->close();
+$user->closeConnection();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

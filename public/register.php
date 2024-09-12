@@ -1,19 +1,16 @@
 <?php
 session_start();
 
-
+require_once __DIR__ . '/../core/models/User.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Crear instancia de la clase User
     $user = new User();
 
-    // Obtener y sanitizar los datos del formulario
     $nombre = trim($_POST['nombre']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $rol = (int)$_POST['rol'];
 
-    // Verificar si el correo ya está registrado
     if ($user->emailExists($email)) {
         $error = "El correo electrónico ya está registrado.";
     } else {

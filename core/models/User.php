@@ -1,5 +1,4 @@
 <?php
-// assets/models/User.php
 require_once 'bd.php';
 
 class User {
@@ -8,10 +7,9 @@ class User {
 
     public function __construct() {
         $this->db = new Database();
-        $this->conn = $this->db->connect(); // Iniciar la conexión
+        $this->conn = $this->db->connect(); 
     }
 
-    // Verificar si el email ya está registrado
     public function emailExists($email) {
         $stmt = $this->conn->prepare("SELECT COUNT(*) FROM usuarios WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -34,6 +32,23 @@ class User {
         $stmt->close();
 
         return $result ? $insertId : false;
+    }
+
+    // Método para manejar el login
+    public function login($email, $password) {
+        $stmt = $this->conn->prepare("SELECT id, nombre, password, rol_id FROM usuarios WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->bind_result($user_id, $nombre, $hashed_password, $rol_id);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Verificar contraseña
+        if ($user_id && password_verify($password, $hashed_password)) {
+            return ['id' => $user_id, 'nombre' => $nombre, 'rol_id' => $rol_id];
+        }
+
+        return false;
     }
 
     // Cerrar la conexión de la base de datos
