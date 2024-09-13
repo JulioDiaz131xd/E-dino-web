@@ -42,10 +42,13 @@ $user->closeConnection();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Clase - E-Dino</title>
-    <link rel="stylesheet" href="../assets/css/gestionar_clase.css">
+    <link rel="stylesheet" href="../assets/css/manage_classes.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
+<style>
+    
+</style>
 <body>
     <header class="header">
         <h1><?php echo htmlspecialchars($nombre_clase); ?></h1>

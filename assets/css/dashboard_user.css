@@ -1,13 +1,13 @@
 :root {
-    --primary-color: #00aaff;
-    --secondary-color: #00ffd5;
-    --background-color: #0a192f;
-    --card-background: rgba(255, 255, 255, 0.1);
-    --text-color: #ffffff;
-    --accent-color: #ff0080;
-    --error-color: #ff4d4d;
-    --success-color: #4dff88;
-    --font-family: 'Roboto', sans-serif;
+    --primary-color: #8bc34a; /* Verde claro principal */
+    --secondary-color: #aed581; /* Verde claro secundario */
+    --background-color: #1b3a4b; /* Fondo verde oscuro suave */
+    --card-background: rgba(255, 255, 255, 0.1); /* Fondo de las tarjetas */
+    --text-color: #ffffff; /* Texto claro */
+    --accent-color: #9ccc65; /* Verde de acento */
+    --error-color: #e57373; /* Rojo suave para errores */
+    --success-color: #81c784; /* Verde suave para éxito */
+    --font-family: 'Roboto', sans-serif; /* Familia de fuentes */
 }
 
 * {
@@ -18,16 +18,19 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--background-color);
     color: var(--text-color);
     overflow-x: hidden;
+    background-image: url('../images/da3.svg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Para que la imagen de fondo no se mueva con el scroll */
 }
 
 /* Header */
 .dashboard-header {
     width: 100%;
     padding: 20px 0;
-    background-color: rgba(10, 25, 47, 0.9);
+    background-color: rgba(10, 25, 47, 0.5); /* Fondo semi-transparente */
     position: fixed;
     top: 0;
     z-index: 1000;
