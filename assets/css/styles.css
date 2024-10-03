@@ -80,7 +80,7 @@ header {
     justify-content: center;
     align-items: center;
     color: #fff;
-    background: url('../assets/images/img2.svg') no-repeat center center/cover; /* Imagen específica para este section */
+    background: url('../assets/images/wallper_index.svg') no-repeat center center/cover; /* Imagen específica para este section */
 }
 
 .hero.fullscreen img {
@@ -102,7 +102,7 @@ header {
 
 /* Clase base para otras secciones hero */
 .hero {
-    background: url('../images/img1.svg') no-repeat center center/cover;
+    background: url('../images/wallper_index.svg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
     flex-direction: column;

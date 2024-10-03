@@ -36,7 +36,7 @@ session_start();
         </section>
 
         <section class="hero fullscreen">
-            <img src="../assets/images/img2.svg" alt="Descripción de la imagen">
+            <img src="../assets/images/wallper_index_2.svg" alt="Descripción de la imagen">
             <h1>Súmate a Nosotros</h1>
             <p>y sé parte del cambio más significativo de la educación.</p>
         </section>
