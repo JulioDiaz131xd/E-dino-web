@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - E-Dino</title>
     <link rel="stylesheet" href="../assets/css/register.css">
+    <link rel="icon" href="../assets/images/logo.ico">
+
 </head>
 <body>
     <main class="register-main">

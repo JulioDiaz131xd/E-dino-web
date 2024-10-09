@@ -7,26 +7,19 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../core/models/class.php';
 
-// Obtener ID de usuario desde la sesión
 $usuario_id = $_SESSION['user_id'];
 
-// Instanciar la clase User
 $user = new User();
 
-// Obtener el nombre del usuario
 $nombre_usuario = $user->getUserNameById($usuario_id);
 
-// Obtener las clases del usuario
 $clases = $user->getUserClasses($usuario_id);
 
-// Obtener progreso de las clases
 $progreso = $user->getUserClassProgress($usuario_id);
 
-// Convertir arrays en formato JSON para el JavaScript
 $clases_nombres_json = json_encode(array_column($progreso, 'nombre'));
 $progreso_valores_json = json_encode(array_column($progreso, 'progreso'));
 
-// Crear una clase
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
     $nombre = $_POST['class-name'];
     $descripcion = $_POST['class-description'];
@@ -41,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     exit();
 }
 
-// Unirse a una clase
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'unirse_clase') {
     $codigo = $_POST['class-code'];
     $result = $user->joinClassByCode($usuario_id, $codigo);
@@ -74,15 +66,18 @@ $user->closeConnection();
 <body>
     <header class="dashboard-header">
         <div class="header-container">
-            <h1 class="logo">E-Dino</h1>
+            <h1 class="logo">
+                <a href="index.php">E-Dino</a> 
+            </h1>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#"><?php echo htmlspecialchars($nombre_usuario); ?></a></li>
+                    <li><a href="dashboard.php"><?php echo htmlspecialchars($nombre_usuario); ?></a></li>
                     <li><a href="logout.php">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
 
     <main class="dashboard-main">
         <section class="welcome-section">
@@ -127,7 +122,6 @@ $user->closeConnection();
         </div>
     </footer>
 
-    <!-- Modal: Crear Clase -->
     <div class="modal" id="create-class-modal">
         <div class="modal-content">
             <span class="close-btn" id="close-create-class-modal">&times;</span>
@@ -163,7 +157,7 @@ $user->closeConnection();
 
     <script src="../assets/js/dashboard.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('progressChart').getContext('2d');
             const clasesNombres = <?php echo $clases_nombres_json; ?>;
             const progresoValores = <?php echo $progreso_valores_json; ?>;
@@ -197,4 +191,5 @@ $user->closeConnection();
         });
     </script>
 </body>
+
 </html>
