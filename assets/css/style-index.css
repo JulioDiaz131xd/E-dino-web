@@ -1,4 +1,3 @@
-/* Reset de márgenes y fuentes */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -53,9 +52,9 @@ header {
 }
 
 .user-role {
-    color: #007bff; /* Color distintivo para el rol */
+    color: #007bff; 
     font-weight: bold;
-    font-size: 1em; /* Ajustado a un tamaño de fuente razonable */
+    font-size: 1em;
 }
 
 .header-buttons button {
@@ -69,11 +68,11 @@ header {
     font-size: 1em;
 }
 
-/* Nueva clase para el section con imagen a pantalla completa */
+
 .hero.fullscreen {
     position: relative;
-    width: 100vw; /* Ancho completo de la ventana del navegador */
-    height: 100vh; /* Altura completa de la ventana del navegador */
+    width: 100vw; 
+    height: 100vh; 
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -89,18 +88,17 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor sin distorsión */
-    z-index: -1; /* Coloca la imagen detrás del contenido del section */
+    object-fit: cover; 
+    z-index: -1; 
 }
 
 .hero.fullscreen h1,
 .hero.fullscreen p {
     position: relative;
-    z-index: 1; /* Asegura que el texto esté por encima de la imagen */
-    color: white; /* Opcional: Cambia el color del texto para que contraste con la imagen */
+    z-index: 1; 
+    color: white; 
 }
 
-/* Clase base para otras secciones hero */
 .hero {
     background: url('../images/wallper_index.svg') no-repeat center center/cover;
     height: 100vh;
@@ -112,11 +110,11 @@ header {
 }
 
 .hero h1 {
-    font-size: 4em; /* Ajustado para mejor responsividad */
+    font-size: 4em; 
 }
 
 .hero p {
-    font-size: 2em; /* Ajustado para mejor responsividad */
+    font-size: 2em; 
     margin: 10px 0;
 }
 
@@ -126,7 +124,7 @@ header {
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 1.5em; /* Ajustado para mejor responsividad */
+    font-size: 1.5em; 
     border-radius: 10px;
 }
 
@@ -139,7 +137,7 @@ header {
     align-items: center;
     justify-content: center; 
     gap: 20px;
-    flex-wrap: wrap; /* Asegura que el contenido se ajuste en pantallas pequeñas */
+    flex-wrap: wrap; 
 }
 
 .text {
@@ -162,13 +160,12 @@ header {
     border-radius: 10px;
 }
 
-/* Nueva clase de difuminado simplificada */
+
 .blur-effect {
     filter: blur(8px);
-    background-color: rgba(255, 255, 255, 0.5); /* Ajustado para una mejor visibilidad */
+    background-color: rgba(255, 255, 255, 0.5); 
 }
 
-/* Añadir animaciones básicas */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -186,6 +183,5 @@ header {
     top: 0;
     left: 0;
     overflow: hidden;
-    pointer-events: none; /* Esto bloquea la interacción con la página de fondo */
+    pointer-events: none; 
 }
-

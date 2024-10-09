@@ -1,34 +1,27 @@
 <?php
 session_start();
 
-// Incluir la clase User
 require_once __DIR__ . '/../core/models/User.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Crear instancia de la clase User
     $user = new User();
 
-    // Obtener y sanitizar los datos del formulario
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Intentar iniciar sesión
     $loggedInUser = $user->login($email, $password);
 
     if ($loggedInUser) {
-        // Iniciar sesión
         $_SESSION['user_id'] = $loggedInUser['id'];
         $_SESSION['nombre'] = $loggedInUser['nombre'];
         $_SESSION['rol_id'] = $loggedInUser['rol_id'];
 
-        // Redirigir al usuario a la página de inicio
         header("Location: index.php");
         exit();
     } else {
         $error = "Correo electrónico o contraseña incorrectos.";
     }
 
-    // Cerrar la conexión a la base de datos
     $user->closeConnection();
 }
 ?>

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Obtener referencias a los elementos
     const createClassBtn = document.getElementById('create-class-btn');
     const joinClassBtn = document.getElementById('join-class-btn');
     const viewClassesBtn = document.getElementById('view-classes-btn');
@@ -10,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const createClassForm = document.getElementById('create-class-form');
     const joinClassForm = document.getElementById('join-class-form');
 
-    // Abrir modales
     createClassBtn.addEventListener('click', () => {
         createClassModal.style.display = 'block';
     });
@@ -19,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         joinClassModal.style.display = 'block';
     });
 
-    // Cerrar modales
     closeCreateClassModal.addEventListener('click', () => {
         createClassModal.style.display = 'none';
     });
@@ -28,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         joinClassModal.style.display = 'none';
     });
 
-    // Crear una clase
     createClassForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -43,13 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(data.message);
             if (data.status === 'success') {
                 createClassModal.style.display = 'none';
-                location.reload(); // Recargar la página para mostrar la nueva clase
+                location.reload(); 
             }
         })
         .catch(error => console.error('Error:', error));
     });
 
-    // Unirse a una clase
     joinClassForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -64,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(data.message);
             if (data.status === 'success') {
                 joinClassModal.style.display = 'none';
-                // Redirigir a la página de gestión de la clase después de unirse
                 window.location.href = `gestionar_clase.php?clase_id=${data.clase_id}`;
             }
         })

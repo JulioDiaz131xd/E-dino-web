@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 entry.target.classList.add('visible');
             }
         });
-    }, { threshold: 0.1 }); // El 10% del elemento debe estar visible para activar la animación
+    }, { threshold: 0.1 }); 
 
     document.querySelectorAll('.fade-in').forEach(section => {
         observer.observe(section);

@@ -10,26 +10,21 @@ require_once __DIR__ . '/../core/models/manage_classes.php';
 $usuario_id = $_SESSION['user_id'];
 $clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
-// Instanciar la clase User
 $user = new User();
 
-// Obtener detalles de la clase
 $clase_detalles = $user->getClassDetails($clase_id);
 if (!$clase_detalles) {
-    // Si la clase no existe, redirige al dashboard
     header("Location: dashboard.php");
     exit();
 }
 $nombre_clase = $clase_detalles['nombre'];
 $descripcion_clase = $clase_detalles['descripcion'];
 
-// Verificar si el usuario está inscrito en la clase
 if (!$user->isUserInClass($usuario_id, $clase_id)) {
     header("Location: dashboard.php");
     exit();
 }
 
-// Obtener miembros de la clase
 $miembros_clase = $user->getClassMembers($clase_id);
 
 $user->closeConnection();
@@ -72,7 +67,6 @@ $user->closeConnection();
             <button id="create-class-material-btn" class="action-btn">Crear Material de Clase</button>
         </section>
 
-        <!-- Sección para mostrar los miembros de la clase -->
         <section class="class-members">
             <h2>Miembros de la Clase</h2>
             <?php if (count($miembros_clase) > 0): ?>

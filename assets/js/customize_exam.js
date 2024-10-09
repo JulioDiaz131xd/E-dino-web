@@ -18,11 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <button type="button" id="saveExam" class="button">Guardar Examen</button>
         `;
         questionsContainer.style.display = 'block';
-        createExamButton.style.display = 'none'; // Ocultar el botón de crear examen
-        createExamAIButton.style.display = 'none'; // Ocultar el botón de crear examen por IA
-        addMoreQuestionsButton.style.display = 'block'; // Mostrar el botón de agregar más preguntas
+        createExamButton.style.display = 'none'; 
+        createExamAIButton.style.display = 'none'; 
+        addMoreQuestionsButton.style.display = 'block'; 
         
-        // Inicializar la primera pregunta
         addQuestion();
     });
 
@@ -70,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             questions.push({ question: questionTitle, options });
         });
 
-        // Enviar los datos al servidor
         fetch('save_exam.php', {
             method: 'POST',
             headers: {
@@ -97,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Por favor, introduce el nombre del examen.');
             return;
         }
-        // Aquí se puede agregar la lógica para crear un examen usando IA
         alert('Crear examen por IA con nombre: ' + examName);
     });
 });

@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="E-Dino es una plataforma de aprendizaje personalizada. Aprende a tu ritmo con nuestros planes de estudio flexibles.">
     <title>E-Dino</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/style-index.css">
     <link rel="icon" href="../assets/images/logo.ico">
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
 </head>
@@ -31,8 +31,7 @@ session_start();
         </section>
 
         <section class="hero fade-int">
-            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
-            <spline-viewer url="https://prod.spline.design/iqY31g5XVr8nmtia/scene.splinecode"></spline-viewer>
+
         </section>
 
         <section class="hero fullscreen">
@@ -42,8 +41,7 @@ session_start();
         </section>
 
         <section class="hero fade-ints">
-            <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.21/build/spline-viewer.js"></script>
-            <spline-viewer url="https://prod.spline.design/AhMmmMlzKudqGwu0/scene.splinecode"></spline-viewer>
+
         </section>
 
 

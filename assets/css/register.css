@@ -15,8 +15,8 @@ body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    margin-top: 70px; /* Espacio superior para el header fijo */
-    flex: 1; /* Asegura que el contenido principal se expanda */
+    margin-top: 70px; 
+    flex: 1; 
 }
 
 .register-container {
@@ -66,7 +66,6 @@ body {
     font-size: 1em;
 }
 
-/* Estilo de las opciones de rol */
 .role-options {
     display: flex;
     justify-content: space-between;
@@ -161,14 +160,12 @@ a:hover {
     color: rgb(163, 252, 175);
 }
 
-/* Mensajes de error */
 .error-message {
     color: red;
     font-size: 0.9em;
     margin-top: 5px;
 }
 
-/* Mensaje de éxito o error global */
 #form-error {
     color: red;
     font-size: 1em;

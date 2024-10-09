@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Scroll animation example (if needed)
     window.addEventListener("scroll", function() {
         const registerContainer = document.querySelector(".register-container");
         registerContainer.style.transform = `translateY(${window.scrollY * 0.1}px)`;

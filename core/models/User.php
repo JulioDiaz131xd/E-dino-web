@@ -21,7 +21,6 @@ class User {
         return $count > 0;
     }
 
-    // Crear nuevo usuario
     public function createUser($nombre, $email, $password, $rol) {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $this->conn->prepare("INSERT INTO usuarios (nombre, email, password, rol_id) VALUES (?, ?, ?, ?)");
@@ -34,7 +33,7 @@ class User {
         return $result ? $insertId : false;
     }
 
-    // Método para manejar el login
+    
     public function login($email, $password) {
         $stmt = $this->conn->prepare("SELECT id, nombre, password, rol_id FROM usuarios WHERE email = ?");
         $stmt->bind_param("s", $email);

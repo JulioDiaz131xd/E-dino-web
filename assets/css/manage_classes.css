@@ -1,26 +1,26 @@
 :root {
-    --primary-color: #a3fcaf; /* Verde claro, para botones y enlaces */
-    --secondary-color: #003366; /* Azul oscuro, para elementos secundarios */
-    --background-color: #2976c4; /* Azul oscuro, fondo principal */
-    --text-color: #e0e0e0; /* Gris muy claro, suave para el texto principal */
-    --text-muted: #9aff9a; /* Verde menta para textos menos destacados */
-    --accent-color: #ff9f00; /* Amarillo anaranjado, vibrante para acentos */
-    --button-hover: #a3fcaf; /* Amarillo brillante para hover en botones */
-    --card-background: #004080; /* Azul marino, contraste con el fondo */
-    --error-color: #ff4d4d; /* Rojo brillante para errores */
-    --success-color: #66ff66; /* Verde brillante para éxito */
-    --table-header-bg: #004080; /* Azul marino para el fondo del encabezado de la tabla */
-    --table-header-text: #e0e0e0; /* Gris muy claro para el texto del encabezado */
-    --table-row-bg: #003366; /* Azul oscuro para el fondo de las filas */
-    --table-row-bg-alt: #004080; /* Azul marino para las filas alternas */
-    --table-row-text: #e0e0e0; /* Gris muy claro para el texto de las filas */
-    --table-row-hover-bg: #002b4b; /* Azul más oscuro para el fondo en hover */
-    --table-border: #004080; /* Azul marino para los bordes de la tabla */
-    --header-bg: rgba(0, 64, 128, 0.6); /* Azul marino transparente para el fondo del encabezado */
-    --footer-bg: rgba(0, 64, 128, 0.6); /* Azul marino transparente para el fondo del pie de página */
-    --header-text: #ffffff; /* Blanco para el texto del encabezado */
-    --footer-text: #ffffff; /* Blanco para el texto del pie de página */
-    --button-bg: #004080; /* Azul marino para botones */
+    --primary-color: #a3fcaf; 
+    --secondary-color: #003366; 
+    --background-color: #2976c4;
+    --text-color: #e0e0e0; 
+    --text-muted: #9aff9a; 
+    --accent-color: #ff9f00; 
+    --button-hover: #a3fcaf;
+    --card-background: #004080;
+    --error-color: #ff4d4d;  
+    --success-color: #66ff66; 
+    --table-header-bg: #004080; 
+    --table-header-text: #e0e0e0; 
+    --table-row-bg: #003366; 
+    --table-row-bg-alt: #004080; 
+    --table-row-text: #e0e0e0; 
+    --table-row-hover-bg: #002b4b; 
+    --table-border: #004080; 
+    --header-bg: rgba(0, 64, 128, 0.6); 
+    --footer-bg: rgba(0, 64, 128, 0.6); 
+    --header-text: #ffffff; 
+    --footer-text: #ffffff; 
+    --button-bg: #004080; 
 }
 
 * {
@@ -152,7 +152,6 @@ a:hover {
     transform: scale(1.05);
 }
 
-/* Class Members Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -327,7 +326,6 @@ tbody td:last-child {
     }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -378,7 +376,6 @@ tbody td:last-child {
     }
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }

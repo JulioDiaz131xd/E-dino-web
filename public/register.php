@@ -14,16 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user->emailExists($email)) {
         $error = "El correo electrónico ya está registrado.";
     } else {
-        // Crear nuevo usuario
         $userId = $user->createUser($nombre, $email, $password, $rol);
 
         if ($userId) {
-            // Iniciar sesión automáticamente
             $_SESSION['user_id'] = $userId;
             $_SESSION['nombre'] = $nombre;
             $_SESSION['rol_id'] = $rol;
 
-            // Redirigir al usuario a la página de inicio
             header("Location: index.php");
             exit();
         } else {
@@ -31,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Cerrar la conexión a la base de datos
     $user->closeConnection();
 }
 ?>

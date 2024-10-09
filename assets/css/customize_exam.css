@@ -1,16 +1,15 @@
-/* Estilo para los labels */
 label {
     display: block;
-    margin-bottom: 0.5em; /* Espacio debajo del label */
+    margin-bottom: 0.5em; 
     font-family: var(--font-family);
     color: var(--text-color);
 }
 
-/* Estilo para los inputs de texto */
+
 input[type="text"] {
     width: 100%;
     padding: 0.5em;
-    margin-bottom: 1em; /* Espacio entre inputs */
+    margin-bottom: 1em; 
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     background-color: var(--card-background);
@@ -18,7 +17,6 @@ input[type="text"] {
     font-family: var(--font-family);
 }
 
-/* Estilo para los botones */
 .button {
     display: inline-block;
     padding: 0.75em 1.5em;
@@ -41,11 +39,10 @@ input[type="text"] {
     background-color: var(--primary-color);
 }
 
-/* Estilo para el botón de agregar más preguntas */
 #addMoreQuestions {
     background-color: var(--success-color);
 }
 
 #addMoreQuestions:hover {
-    background-color: #388e3c; /* Verde más oscuro para hover */
+    background-color: #388e3c; 
 }
