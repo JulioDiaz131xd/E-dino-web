@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../core/models/manage_classes.php';
 
 $usuario_id = $_SESSION['user_id'];
+$rol_id = $_SESSION['rol_id'];  // Añadimos la verificación de rol
 $clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
 $user = new User();
@@ -39,11 +40,10 @@ $user->closeConnection();
     <title>Gestionar Clase - E-Dino</title>
     <link rel="stylesheet" href="../assets/css/manage_classes.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../assets/images/logo.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
-<style>
-    
-</style>
+
 <body>
     <header class="header">
         <h1><?php echo htmlspecialchars($nombre_clase); ?></h1>
@@ -61,10 +61,11 @@ $user->closeConnection();
         </section>
 
         <section class="class-actions">
-            <button id="create-exam-btn" class="action-btn"
-                onclick="window.location.href='customize_exam.php?clase_id=<?php echo $clase_id; ?>'">Crear
-                Examen</button>
-            <button id="create-class-material-btn" class="action-btn">Crear Material de Clase</button>
+            <?php if ($rol_id == 1): // Solo mostrar las acciones de creación si es maestro ?>
+                <button id="create-exam-btn" class="action-btn" 
+                    onclick="window.location.href='customize_exam.php?clase_id=<?php echo $clase_id; ?>'">Crear Examen</button>
+                <button id="create-class-material-btn" class="action-btn">Crear Material de Clase</button>
+            <?php endif; ?>
         </section>
 
         <section class="class-members">

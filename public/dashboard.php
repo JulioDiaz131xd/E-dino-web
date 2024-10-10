@@ -8,28 +8,31 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../core/models/class.php';
 
 $usuario_id = $_SESSION['user_id'];
+$rol_id = $_SESSION['rol_id'];  // Rol del usuario
 
 $user = new User();
 
 $nombre_usuario = $user->getUserNameById($usuario_id);
-
 $clases = $user->getUserClasses($usuario_id);
-
 $progreso = $user->getUserClassProgress($usuario_id);
 
 $clases_nombres_json = json_encode(array_column($progreso, 'nombre'));
 $progreso_valores_json = json_encode(array_column($progreso, 'progreso'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
-    $nombre = $_POST['class-name'];
-    $descripcion = $_POST['class-description'];
+    if ($rol_id == 1) {  // Solo los maestros pueden crear clases
+        $nombre = $_POST['class-name'];
+        $descripcion = $_POST['class-description'];
 
-    $codigo = $user->createClass($usuario_id, $nombre, $descripcion);
+        $codigo = $user->createClass($usuario_id, $nombre, $descripcion);
 
-    if ($codigo) {
-        echo json_encode(['status' => 'success', 'message' => 'Clase creada exitosamente.', 'codigo' => $codigo]);
+        if ($codigo) {
+            echo json_encode(['status' => 'success', 'message' => 'Clase creada exitosamente.', 'codigo' => $codigo]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al crear la clase.']);
+        }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error al crear la clase.']);
+        echo json_encode(['status' => 'error', 'message' => 'No tienes permiso para crear una clase.']);
     }
     exit();
 }
@@ -59,6 +62,7 @@ $user->closeConnection();
     <title>Dashboard - E-Dino</title>
     <link rel="stylesheet" href="../assets/css/dashboard-user.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../assets/images/logo.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -86,10 +90,12 @@ $user->closeConnection();
         </section>
 
         <section class="actions-section">
-            <button class="action-btn" id="create-class-btn">Crear Clase</button>
-            <button class="action-btn" id="join-class-btn">Unirse a una Clase</button>
-            <button class="action-btn" id="view-classes-btn">Ver Mis Clases</button>
-        </section>
+    <?php if ($rol_id == 1): // Solo maestros (rol_id = 1) pueden ver este botón ?>
+        <button class="action-btn" id="create-class-btn">Crear Clase</button>
+    <?php endif; ?>
+    <button class="action-btn" id="join-class-btn">Unirse a una Clase</button>
+    <button class="action-btn" id="view-classes-btn">Ver Mis Clases</button>
+</section>
 
         <section class="classes-section">
             <h3>Tus Clases</h3>
