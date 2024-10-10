@@ -1,9 +1,31 @@
-
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-10-2024 a las 07:14:50
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `e_dino`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clases`
+--
 
 CREATE TABLE `clases` (
   `id` int(11) NOT NULL,
@@ -19,10 +41,7 @@ CREATE TABLE `clases` (
 --
 
 INSERT INTO `clases` (`id`, `nombre`, `descripcion`, `codigo`, `creador_id`, `fecha_creacion`) VALUES
-(33, 'matematicas', 'dsfdfdf', '4f336f25', 1, '2024-09-07 19:11:52'),
-(34, 'matematicas', 'Julio', '6f9750a9', 1, '2024-09-07 19:12:57'),
-(35, 'Español', 'Clase de julio', 'fd67d18f', 1, '2024-09-07 19:48:35'),
-(36, 'Calculo', 'Clase de calculo 2024', '2f187dc9', 1, '2024-09-07 23:51:38');
+(1, 'Matematicas', 'dfdf', '440adfc9', 7, '2024-10-10 04:49:39');
 
 -- --------------------------------------------------------
 
@@ -47,7 +66,14 @@ INSERT INTO `clases_usuarios` (`id`, `usuario_id`, `clase_id`, `fecha_inscripcio
 (3, 1, 35, '2024-09-07 19:48:35'),
 (4, 1, 36, '2024-09-07 23:51:38'),
 (5, 2, 36, '2024-09-07 23:53:02'),
-(6, 2, 34, '2024-09-08 16:55:36');
+(6, 2, 34, '2024-09-08 16:55:36'),
+(7, 3, 37, '2024-09-08 21:43:14'),
+(8, 1, 37, '2024-09-08 21:43:47'),
+(9, 4, 38, '2024-09-09 00:13:31'),
+(10, 1, 38, '2024-09-09 00:15:53'),
+(11, 5, 36, '2024-09-13 01:46:04'),
+(12, 7, 39, '2024-10-10 01:45:50'),
+(13, 7, 1, '2024-10-10 04:49:39');
 
 -- --------------------------------------------------------
 
@@ -74,7 +100,9 @@ CREATE TABLE `materiales_clase` (
   `titulo` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `clase_id` int(11) NOT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `valor` decimal(10,2) NOT NULL,
+  `fecha_limite` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -158,7 +186,12 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol_id`, `numero_control`, `fecha_registro`) VALUES
 (1, 'Ramon Julio', 'prepajulio131@gmail.com', '$2y$10$41WcNvZwxw43NazndRGFLOXmQOc9Pg7BU0kJkiN5NCtAEdDgytH3O', 2, NULL, '2024-09-07 19:06:42'),
-(2, 'Jessi', 'jessi@gmail.com', '$2y$10$fV4P1TDUeMtPDVNZml2oYeCEt4wRmHb9qt3ZBFfKIo4jp2jiLCm2G', 2, NULL, '2024-09-07 23:52:56');
+(2, 'Jessi', 'jessi@gmail.com', '$2y$10$fV4P1TDUeMtPDVNZml2oYeCEt4wRmHb9qt3ZBFfKIo4jp2jiLCm2G', 2, NULL, '2024-09-07 23:52:56'),
+(3, 'admin', 'admin@gmail.com', '$2y$10$rKGmRgOp47EMUYvSxc3cV.2OO66r9wrcP1a/XK88g7zhoIfRE0Qqa', 1, NULL, '2024-09-08 21:42:58'),
+(4, 'Dani', 'dani@gmail.com', '$2y$10$WkiE8dONI2OQVtOIzwm4B.hDejPu0TrbvUtuIu.pH09St5HqMi57G', 1, NULL, '2024-09-09 00:12:52'),
+(5, 'Panecillo', 'panecillo@gmail.com', '$2y$10$nTFgm.sAui68RT4huCAnUOOSIN9Mcj4kXC9TE893Sl1P09rtEBcSq', 2, NULL, '2024-09-13 01:45:58'),
+(6, 'test', 'test@gmail.com', '$2y$10$ielOlThtdVLlzIXn7/QtG./uZi2bb3NvVPmKm3F5dm3YCGq/GJfG6', 2, NULL, '2024-10-09 03:04:03'),
+(7, 'adm', 'adm@gmail.com', '$2y$10$faTyy1HXATuM8wRNQSZjOe5RENOnGeH5k9kdjdzKMn6StvSiXOIuC', 1, NULL, '2024-10-10 01:44:38');
 
 --
 -- Índices para tablas volcadas
@@ -168,8 +201,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol_id`, `numero_c
 -- Indices de la tabla `clases`
 --
 ALTER TABLE `clases`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `creador_id` (`creador_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `clases_usuarios`
@@ -238,13 +270,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `clases_usuarios`
 --
 ALTER TABLE `clases_usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `examenes`
@@ -256,7 +288,7 @@ ALTER TABLE `examenes`
 -- AUTO_INCREMENT de la tabla `materiales_clase`
 --
 ALTER TABLE `materiales_clase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
@@ -286,17 +318,11 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `clases`
---
-ALTER TABLE `clases`
-  ADD CONSTRAINT `clases_ibfk_1` FOREIGN KEY (`creador_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `clases_usuarios`
