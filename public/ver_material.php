@@ -11,7 +11,6 @@ $material_id = isset($_GET['material_id']) ? intval($_GET['material_id']) : 0;
 
 $user = new User();
 
-// Obtener los detalles del material
 $material_detalles = $user->getMaterialDetails($material_id);
 if (!$material_detalles) {
     header("Location: gestionar_clase.php");
@@ -22,6 +21,7 @@ $titulo_material = $material_detalles['titulo'];
 $descripcion_material = $material_detalles['descripcion'];
 $fecha_creacion = $material_detalles['fecha_creacion'];
 
+// Cerrar la conexión a la base de datos
 $user->closeConnection();
 ?>
 
@@ -43,7 +43,9 @@ $user->closeConnection();
         <h1><?php echo htmlspecialchars($titulo_material); ?></h1>
         <nav>
             <ul>
-                <li><a href="gestionar_clase.php?clase_id=<?php echo $_GET['clase_id']; ?>">Volver a la Clase</a></li>
+                <li>
+                    <a href="gestionar_clase.php?clase_id=<?php echo isset($_GET['clase_id']) ? htmlspecialchars($_GET['clase_id']) : ''; ?>">Volver a la Clase</a>
+                </li>
             </ul>
         </nav>
     </header>

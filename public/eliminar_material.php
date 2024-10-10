@@ -7,15 +7,18 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../core/models/manage_classes.php';
 
-$usuario_id = $_SESSION['user_id'];
 $material_id = isset($_GET['material_id']) ? intval($_GET['material_id']) : 0;
-$clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
 $user = new User();
 
-if ($material_id > 0) {
-    $user->deleteClassMaterial($material_id);
+// Intenta eliminar el material
+if ($user->deleteClassMaterial($material_id)) {
+    // Redirige a la página de gestión de clase con un mensaje de éxito
+    header("Location: gestionar_clase.php?mensaje=Material eliminado con éxito");
+} else {
+    // Redirige a la página de gestión de clase con un mensaje de error
+    header("Location: gestionar_clase.php?error=Error al eliminar el material");
 }
 
-header("Location: gestionar_clase.php?clase_id=" . $clase_id);
-exit();
+$user->closeConnection();
+?>

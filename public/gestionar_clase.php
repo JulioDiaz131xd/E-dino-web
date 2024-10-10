@@ -18,7 +18,6 @@ if (!$clase_detalles) {
     header("Location: dashboard.php");
     exit();
 }
-
 $nombre_clase = $clase_detalles['nombre'];
 $descripcion_clase = $clase_detalles['descripcion'];
 
@@ -27,17 +26,24 @@ if (!$user->isUserInClass($usuario_id, $clase_id)) {
     exit();
 }
 
-// Obtener miembros de clase
 $miembros_clase = $user->getClassMembers($clase_id);
+$materiales_clase = $user->getClassMaterials($clase_id); // Método para obtener materiales
 
-// Obtener materiales de clase
-$materiales_clase = $user->getClassMaterials($clase_id);
+// Mensajes de éxito o error
+if (isset($_GET['mensaje'])) {
+    echo '<p style="color: green;">' . htmlspecialchars($_GET['mensaje']) . '</p>';
+}
+
+if (isset($_GET['error'])) {
+    echo '<p style="color: red;">' . htmlspecialchars($_GET['error']) . '</p>';
+}
 
 $user->closeConnection();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +53,7 @@ $user->closeConnection();
     <link rel="icon" href="../assets/images/logo.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
+
 <body>
     <header class="header">
         <h1><?php echo htmlspecialchars($nombre_clase); ?></h1>
@@ -63,20 +70,12 @@ $user->closeConnection();
             <p><?php echo htmlspecialchars($descripcion_clase); ?></p>
         </section>
 
-        <section class="class-materials">
-            <h2>Materiales de Clase</h2>
-            <?php if (count($materiales_clase) > 0): ?>
-                <ul>
-                    <?php foreach ($materiales_clase as $material): ?>
-                        <li>
-                            <button class="material-btn" onclick="window.location.href='ver_material.php?material_id=<?php echo $material['id']; ?>&clase_id=<?php echo $clase_id; ?>'">
-                                <?php echo htmlspecialchars($material['titulo']); ?>
-                            </button>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>No hay materiales disponibles.</p>
+        <section class="class-actions">
+            <?php if ($rol_id == 1): ?>
+                <button id="create-exam-btn" class="action-btn" 
+                    onclick="window.location.href='customize_exam.php?clase_id=<?php echo $clase_id; ?>'">Crear Examen</button>
+                <button id="create-class-material-btn" class="action-btn"
+                    onclick="window.location.href='create-material.php?clase_id=<?php echo $clase_id; ?>'">Crear Material de Clase</button>
             <?php endif; ?>
         </section>
 
@@ -103,10 +102,30 @@ $user->closeConnection();
                 <p>No hay miembros en esta clase.</p>
             <?php endif; ?>
         </section>
+
+        <section class="class-materials">
+            <h2>Materiales de Clase</h2>
+            <?php if (count($materiales_clase) > 0): ?>
+                <?php foreach ($materiales_clase as $material): ?>
+                    <div class="material-item">
+                        <button class="material-btn" 
+                            onclick="window.location.href='ver_material.php?material_id=<?php echo $material['id']; ?>'">
+                            <?php echo htmlspecialchars($material['titulo']); ?>
+                        </button>
+                        <a href="eliminar_material.php?material_id=<?php echo $material['id']; ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este material?');">Eliminar</a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No hay materiales en esta clase.</p>
+            <?php endif; ?>
+        </section>
     </main>
 
     <footer class="footer">
         <p>&copy; <?php echo date("Y"); ?> E-Dino. Todos los derechos reservados.</p>
     </footer>
+
+    <script src="../assets/js/gestionar_clase.js"></script>
 </body>
+
 </html>
