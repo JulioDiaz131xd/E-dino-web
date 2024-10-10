@@ -163,38 +163,7 @@ $user->closeConnection();
 
     <script src="../assets/js/dashboard.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('progressChart').getContext('2d');
-            const clasesNombres = <?php echo $clases_nombres_json; ?>;
-            const progresoValores = <?php echo $progreso_valores_json; ?>;
-            const colores = ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4caf50', '#ffc107', '#e91e63', '#9c27b0'];
 
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: clasesNombres,
-                    datasets: [{
-                        label: 'Progreso (%)',
-                        data: progresoValores,
-                        backgroundColor: colores.slice(0, progresoValores.length),
-                        borderColor: colores.map(color => darkenColor(color)),
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                }
-            });
-
-            function darkenColor(color) {
-                let colorCopy = color.substring(1);
-                let rgb = parseInt(colorCopy, 16);
-                let r = (rgb >> 16) - 20;
-                let g = ((rgb >> 8) & 0x00FF) - 20;
-                let b = (rgb & 0x0000FF) - 20;
-                return `#${(0x1000000 + (r < 255 ? r : 255) * 0x10000 + (g < 255 ? g : 255) * 0x100 + (b < 255 ? b : 255)).toString(16).slice(1)}`;
-            }
-        });
     </script>
 </body>
 
