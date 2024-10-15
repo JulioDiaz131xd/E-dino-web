@@ -12,7 +12,6 @@ $clase_id = isset($_GET['clase_id']) ? intval($_GET['clase_id']) : 0;
 
 $user = new User();
 
-// Aquí puedes agregar validaciones para verificar si el usuario tiene permiso para crear materiales.
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $material_title = $_POST['material-title'];

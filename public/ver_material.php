@@ -21,7 +21,6 @@ $titulo_material = $material_detalles['titulo'];
 $descripcion_material = $material_detalles['descripcion'];
 $fecha_creacion = $material_detalles['fecha_creacion'];
 
-// Cerrar la conexión a la base de datos
 $user->closeConnection();
 ?>
 
@@ -32,7 +31,7 @@ $user->closeConnection();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($titulo_material); ?> - Detalles del Material</title>
-    <link rel="stylesheet" href="../assets/css/material_details.css">
+    <link rel="stylesheet" href="../assets/css/view_material.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" href="../assets/images/logo.ico">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">

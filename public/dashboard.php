@@ -71,7 +71,7 @@ $user->closeConnection();
     <header class="dashboard-header">
         <div class="header-container">
             <h1 class="logo">
-                <a href="index.php">E-Dino</a> 
+                <a href="index.php">E-Dino</a>
             </h1>
             <nav class="nav-menu">
                 <ul>
@@ -90,12 +90,13 @@ $user->closeConnection();
         </section>
 
         <section class="actions-section">
-    <?php if ($rol_id == 1): // Solo maestros (rol_id = 1) pueden ver este botón ?>
-        <button class="action-btn" id="create-class-btn">Crear Clase</button>
-    <?php endif; ?>
-    <button class="action-btn" id="join-class-btn">Unirse a una Clase</button>
-    <button class="action-btn" id="view-classes-btn">Ver Mis Clases</button>
-</section>
+            <?php if ($rol_id == 1): // Solo maestros (rol_id = 1) pueden ver este botón 
+            ?>
+                <button class="action-btn" id="create-class-btn">Crear Clase</button>
+            <?php endif; ?>
+            <button class="action-btn" id="join-class-btn">Unirse a una Clase</button>
+            <button class="action-btn" id="view-classes-btn">Ver Mis Clases</button>
+        </section>
 
         <section class="classes-section">
             <h3>Tus Clases</h3>
@@ -160,10 +161,8 @@ $user->closeConnection();
             </form>
         </div>
     </div>
-
     <script src="../assets/js/dashboard.js"></script>
     <script>
-
     </script>
 </body>
 
