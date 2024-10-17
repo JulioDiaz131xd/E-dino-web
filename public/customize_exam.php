@@ -29,6 +29,7 @@ $user->closeConnection();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@ $user->closeConnection();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 </head>
+
 <body>
     <header class="header">
         <h1><?php echo htmlspecialchars($nombre_clase); ?></h1>
@@ -71,4 +73,5 @@ $user->closeConnection();
 
     <script src="../assets/js/customize_exam.js"></script>
 </body>
+
 </html>
