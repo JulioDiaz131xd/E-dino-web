@@ -42,7 +42,6 @@ class User {
         $stmt->fetch();
         $stmt->close();
 
-        // Verificar contraseña
         if ($user_id && password_verify($password, $hashed_password)) {
             return ['id' => $user_id, 'nombre' => $nombre, 'rol_id' => $rol_id];
         }
@@ -50,7 +49,6 @@ class User {
         return false;
     }
 
-    // Cerrar la conexión de la base de datos
     public function closeConnection() {
         $this->db->close();
     }

@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../core/models/class.php';
 
 $usuario_id = $_SESSION['user_id'];
-$rol_id = $_SESSION['rol_id'];  // Rol del usuario
+$rol_id = $_SESSION['rol_id'];  // Determina el rol del usuario para funciones y sea mas facil xd
 
 $user = new User();
 
@@ -20,7 +20,7 @@ $clases_nombres_json = json_encode(array_column($progreso, 'nombre'));
 $progreso_valores_json = json_encode(array_column($progreso, 'progreso'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
-    if ($rol_id == 1) {  // Solo los maestros pueden crear clases
+    if ($rol_id == 1) {  // Solo los maestro pueden acceder a ciertas funciones como crear clase con el rol 2 que esta esta estabbleciodo en la base de datos
         $nombre = $_POST['class-name'];
         $descripcion = $_POST['class-description'];
 
@@ -51,11 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 $user->closeConnection();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,7 +63,6 @@ $user->closeConnection();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
     <header class="dashboard-header">
         <div class="header-container">
@@ -81,8 +77,6 @@ $user->closeConnection();
             </nav>
         </div>
     </header>
-
-
     <main class="dashboard-main">
         <section class="welcome-section">
             <h2>Bienvenido, <?php echo htmlspecialchars($nombre_usuario); ?> 👋</h2>

@@ -1,9 +1,9 @@
 <?php
 class Database {
     private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "e_dino";
+    private $username = "edino47pc_adminDino";
+    private $password = "e/5Fj8>s>b@";
+    private $dbname = "edino47pc_e_dino";
     private $conn;
 
     public function connect() {

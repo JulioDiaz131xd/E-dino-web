@@ -1,16 +1,42 @@
+/* General Styles */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    overflow-x: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+
+/* Header */
 header {
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
     padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+header.sticky {
+    background-color: #007bff;
+    color: #fff;
 }
 
 .header-container {
@@ -20,168 +46,326 @@ header {
 }
 
 .logo {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
-}
-
-.header-buttons {
-    display: flex;
-    align-items: center;
-}
-
-.logout-info {
-    display: flex;
-    align-items: center;
-}
-
-.logout-form {
-    margin-right: 15px;
-}
-
-.user-info {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-name {
-    color: #000;
-}
-
-.user-role {
-    color: #007bff; 
-    font-weight: bold;
-    font-size: 1em;
+    color: #007bff;
+    transition: color 0.3s ease;
 }
 
 .header-buttons button {
-    background-color: transparent;
-    color: #000;
-    border: none;
-    padding: 10px 15px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-    font-size: 1em;
-}
-
-
-.hero.fullscreen {
-    position: relative;
-    width: 100vw; 
-    height: 100vh; 
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-color: #007bff;
     color: #fff;
-    background: url('../assets/images/wallper_index.svg') no-repeat center center/cover; /* Imagen específica para este section */
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-left: 15px;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
 }
 
-.hero.fullscreen img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    z-index: -1; 
+.header-buttons button:hover {
+    background-color: #0056b3;
 }
 
-.hero.fullscreen h1,
-.hero.fullscreen p {
-    position: relative;
-    z-index: 1; 
-    color: white; 
-}
-
+/* Hero Section */
 .hero {
-    background: url('../images/wallper_index.svg') no-repeat center center/cover;
+    position: relative;
+    width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
     color: #fff;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out forwards;
 }
 
 .hero h1 {
-    font-size: 4em; 
+    font-size: 4.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: slideInFromLeft 1.5s ease-in-out forwards;
 }
 
 .hero p {
-    font-size: 2em; 
-    margin: 10px 0;
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    animation: slideInFromRight 1.5s ease-in-out forwards;
 }
 
 .hero button {
-    background-color: #9900ff;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1.5em; 
-    border-radius: 10px;
-}
-
-.about, .mission {
-    padding: 40px 20px;
-}
-
-.content {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    gap: 20px;
-    flex-wrap: wrap; 
-}
-
-.text {
-    max-width: 600px;
-}
-
-.about h2, .mission h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.about p, .mission p {
+    background-color: #ff0076;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 25px;
     font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: fadeInUp 2s ease-in-out forwards;
+}
+
+.hero button:hover {
+    background-color: #d60064;
+    transform: scale(1.05);
+}
+
+/* Benefits Section */
+.benefits {
+    padding: 80px 20px;
+    background-color: #f1f1f1;
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.benefits h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.benefit-item {
+    display: inline-block;
+    width: 300px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.benefit-item img {
+    width: 80px;
     margin-bottom: 20px;
 }
 
-.about img, .mission img {
-    width: 100%;
-    max-width: 400px;
+.benefit-item h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.benefit-item p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 100px 20px;
+    background-color: #fff;
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.testimonials-slider {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    gap: 30px;
+}
+
+.testimonial-item {
+    min-width: 300px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.testimonial-item:hover {
+    transform: scale(1.05);
+}
+
+.testimonial-item img {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+blockquote {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.testimonial-item h4 {
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+
+.testimonial-item span {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Call to Action Section */
+.cta {
+    background-color: #007bff;
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+    animation: fadeInUp 1.5s ease-in-out forwards;
+}
+
+.cta h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.cta p {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+}
+
+.cta button {
+    background-color: #ff0076;
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 25px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta button:hover {
+    background-color: #d60064;
+    transform: scale(1.05);
+}
+
+/* FAQ Section */
+.faq {
+    padding: 80px 20px;
+    background-color: #f1f1f1;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.faq h2 {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.faq-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.faq-item {
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-.blur-effect {
-    filter: blur(8px);
-    background-color: rgba(255, 255, 255, 0.5); 
+.faq-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
-.fade-in {
+.faq-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    font-size: 1em;
+    color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animaciones básicas */
+.fade-in-scroll {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(50px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-.fade-in.visible {
+.fade-in-scroll.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.hero.fade-int {        
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    pointer-events: none; 
+.slide-left-scroll {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.slide-left-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-right-scroll {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.slide-right-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.zoom-in-scroll {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.zoom-in-scroll.visible {
+    opacity: 1;
+    transform: scale(1);
 }
