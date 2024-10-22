@@ -1,6 +1,6 @@
 # E-Dino
 
-![E-Dino Logo](ruta/a/tu/logo.png) <!-- Reemplaza con la ruta a tu imagen de logo -->
+![E-Dino Logo](assets/images/readme.jpg) <!-- Reemplaza con la ruta a tu imagen de logo -->
   
 E-Dino es una plataforma de E-learning diseñada para automatizar el proceso educativo, proporcionando herramientas para la gestión eficiente de trabajos y la creación de rúbricas personalizadas. Con E-Dino, tanto alumnos como maestros pueden disfrutar de una experiencia de aprendizaje más interactiva y organizada.
 
