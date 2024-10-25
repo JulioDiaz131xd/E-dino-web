@@ -19,6 +19,10 @@ body {
     margin: 0;
     padding: 0;
     animation: fadeIn 1s; /* Efecto de desvanecimiento al cargar */
+    background-image: url('../images/dashboard-img.svg');
+    background-size: cover; /* Ajusta la imagen al contenedor */
+    background-position: center;
+    transition: all 0.3s ease-in-out; /* Transición suave para el hover */
 }
 
 @keyframes fadeIn {
