@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../core/models/class.php';
 
 $usuario_id = $_SESSION['user_id'];
-$rol_id = $_SESSION['rol_id'];  // Determina el rol del usuario para funciones y sea mas facil xd
+$rol_id = $_SESSION['rol_id'];
 
 $user = new User();
 
@@ -19,34 +19,36 @@ $progreso = $user->getUserClassProgress($usuario_id);
 $clases_nombres_json = json_encode(array_column($progreso, 'nombre'));
 $progreso_valores_json = json_encode(array_column($progreso, 'progreso'));
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
-    if ($rol_id == 1) {  // Solo los maestro pueden acceder a ciertas funciones como crear clase con el rol 2 que esta esta estabbleciodo en la base de datos
-        $nombre = $_POST['class-name'];
-        $descripcion = $_POST['class-description'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action']) && $_POST['action'] === 'crear_clase') {
+        if ($rol_id === 1) {
+            $nombre = $_POST['class-name'] ?? '';
+            $descripcion = $_POST['class-description'] ?? '';
 
-        $codigo = $user->createClass($usuario_id, $nombre, $descripcion);
+            $codigo = $user->createClass($usuario_id, $nombre, $descripcion);
 
-        if ($codigo) {
-            echo json_encode(['status' => 'success', 'message' => 'Clase creada exitosamente.', 'codigo' => $codigo]);
+            if ($codigo) {
+                echo json_encode(['status' => 'success', 'message' => 'Clase creada exitosamente.', 'codigo' => $codigo]);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error al crear la clase.']);
+            }
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error al crear la clase.']);
+            echo json_encode(['status' => 'error', 'message' => 'No tienes permiso para crear una clase.']);
         }
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'No tienes permiso para crear una clase.']);
+        exit();
     }
-    exit();
-}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'unirse_clase') {
-    $codigo = $_POST['class-code'];
-    $result = $user->joinClassByCode($usuario_id, $codigo);
+    if (isset($_POST['action']) && $_POST['action'] === 'unirse_clase') {
+        $codigo = $_POST['class-code'] ?? '';
+        $result = $user->joinClassByCode($usuario_id, $codigo);
 
-    if ($result === 'success') {
-        echo json_encode(['status' => 'success', 'message' => 'Te has unido a la clase exitosamente.']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => $result]);
+        if ($result === 'success') {
+            echo json_encode(['status' => 'success', 'message' => 'Te has unido a la clase exitosamente.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => $result]);
+        }
+        exit();
     }
-    exit();
 }
 
 $user->closeConnection();
@@ -67,25 +69,24 @@ $user->closeConnection();
     <header class="dashboard-header">
         <div class="header-container">
             <h1 class="logo">
-                <a href="index.php">E-Dino</a>
+                <a href="/../index.php">E-Dino</a>
             </h1>
             <nav class="nav-menu">
                 <ul>
                     <li><a href="dashboard.php"><?php echo htmlspecialchars($nombre_usuario); ?></a></li>
-                    <li><a href="logout.php">Cerrar Sesión</a></li>
+                    <li><a href="logout.php">Cerrar Sesion</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main class="dashboard-main">
         <section class="welcome-section">
-            <h2>Bienvenido, <?php echo htmlspecialchars($nombre_usuario); ?> 👋</h2>
-            <p>¡Explora tus clases y sigue tu progreso!</p>
+            <h2>Bienvenido, <?php echo htmlspecialchars($nombre_usuario); ?></h2>
+            <p>Explora tus clases y sigue tu progreso</p>
         </section>
 
         <section class="actions-section">
-            <?php if ($rol_id == 1): // Solo maestros (rol_id = 1) pueden ver este botón 
-            ?>
+            <?php if ($rol_id === 1): ?>
                 <button class="action-btn" id="create-class-btn">Crear Clase</button>
             <?php endif; ?>
             <button class="action-btn" id="join-class-btn">Unirse a una Clase</button>
@@ -100,12 +101,12 @@ $user->closeConnection();
                         <div class="class-card">
                             <h4><?php echo htmlspecialchars($clase['nombre']); ?></h4>
                             <p><?php echo htmlspecialchars($clase['descripcion']); ?></p>
-                            <p><strong>Código de Clase:</strong> <?php echo htmlspecialchars($clase['codigo']); ?></p>
+                            <p><strong>Codigo de Clase:</strong> <?php echo htmlspecialchars($clase['codigo']); ?></p>
                             <a href="gestionar_clase.php?clase_id=<?php echo $clase['id']; ?>" class="class-action-btn">Entrar</a>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No estás inscrito en ninguna clase aún.</p>
+                    <p>No estas inscrito en ninguna clase aun.</p>
                 <?php endif; ?>
             </div>
         </section>
@@ -119,7 +120,7 @@ $user->closeConnection();
     <footer class="dashboard-footer">
         <div class="footer-container">
             <p>&copy; <?php echo date("Y"); ?> E-Dino. Todos los derechos reservados.</p>
-            <p>Desarrollado con ❤️ por el equipo de E-Dino.</p>
+            <p>Desarrollado con por el equipo de E-Dino.</p>
         </div>
     </footer>
 
@@ -133,7 +134,7 @@ $user->closeConnection();
                     <input type="text" id="class-name" name="class-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="class-description">Descripción</label>
+                    <label for="class-description">Descripcion</label>
                     <textarea id="class-description" name="class-description" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Crear Clase</button>
@@ -141,23 +142,19 @@ $user->closeConnection();
         </div>
     </div>
 
-    <!-- Modal: Unirse a Clase -->
     <div class="modal" id="join-class-modal">
         <div class="modal-content">
             <span class="close-btn" id="close-join-class-modal">&times;</span>
             <h2>Unirse a una Clase</h2>
             <form id="join-class-form">
                 <div class="form-group">
-                    <label for="class-code">Código de la Clase</label>
+                    <label for="class-code">Codigo de la Clase</label>
                     <input type="text" id="class-code" name="class-code" required>
                 </div>
                 <button type="submit" class="submit-btn">Unirse a Clase</button>
             </form>
         </div>
     </div>
-    <script src="../assets/js/dashboard.js"></script>
-    <script>
-    </script>
+    <script src="../assets/js/dashboard_user.js"></script>
 </body>
-
 </html>
