@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['nombre'] = $loggedInUser['nombre'];
         $_SESSION['rol_id'] = $loggedInUser['rol_id'];
 
-        header("Location: index.php");
+        // Redirección a la raíz
+        header("Location: /index.php");
         exit();
     } else {
         $error = "Correo electrónico o contraseña incorrectos.";
@@ -33,8 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - E-Dino</title>
     <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="icon" href="../assets/images/logo.ico">
 </head>
 <body>
+
+    <?php
+    // Incluir el header
+    include '../includes/header.php';
+    ?>
+
     <main class="login-main">
         <div class="login-container">
             <h2>Iniciar Sesión</h2>
@@ -55,5 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>¿No tienes una cuenta? <a href="register.php">Regístrate aquí</a>.</p>
         </div>
     </main>
+
+    <?php
+    // Incluir el footer
+    include '../includes/footer.php';
+    ?>
+
 </body>
 </html>
