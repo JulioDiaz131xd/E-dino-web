@@ -1,298 +1,316 @@
 :root {
-    --primary-color: #9575cd; /* Un morado suave como color principal */
-    --secondary-color: #d1c4e9; /* Morado claro para complementar */
-    --background-color: #4a148c; /* Un fondo morado oscuro, profundo */
-    --card-background: rgba(255, 255, 255, 0.15); /* Blanco con un toque de transparencia para las tarjetas */
-    --text-color: #f3e5f5; /* Un blanco lila para un buen contraste con el fondo oscuro */
-    --accent-color: #4d77ff; /* Un tono cálido de naranja para destacar */
-    --error-color: #e57373; /* Rojo suave para errores */
-    --success-color: #81c784; /* Verde suave para mensajes de éxito */
-    --font-family: 'Roboto', sans-serif; /* Mantén la misma fuente */
-}
-
-
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    --primary-color: #4a90e2; /* Color principal */
+    --secondary-color: #34a853; /* Color secundario */
+    --background-color-start: #e0eafc; /* Color inicial del degradado */
+    --background-color-end: #cfdef3; /* Color final del degradado */
+    --text-color: #202124; /* Color del texto */
+    --text-light-color: #5f6368; /* Color de texto ligero */
+    --header-bg-color: rgba(53, 122, 232, 0.9); /* Fondo de la cabecera */
+    --button-hover-color: #185abc; /* Color de hover para botones */
+    --button-hover-secondary: #0c8035; /* Color de hover para botones secundarios */
+    --border-radius: 12px; /* Radio de bordes */
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra de caja */
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom right, var(--background-color-start), var(--background-color-end));
     color: var(--text-color);
-    background: var(--background-color) url('../images/da4.svg') no-repeat center center fixed;
-    background-size: cover;
-    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    animation: fadeIn 1s; /* Efecto de desvanecimiento al cargar */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 /* Header */
 .dashboard-header {
-    background-color: rgba(10, 25, 47, 0.7);
-    padding: 15px;
-    position: fixed;
+    background-color: var(--header-bg-color);
+    color: white;
+    padding: 16px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
     top: 0;
-    width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s; /* Transición para el fondo de la cabecera */
 }
 
 .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    font-weight: 700;
-    transition: transform 0.3s ease;
-}
-
-.logo:hover {
-    transform: scale(1.1);
+.logo a {
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .nav-menu ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 20px;
+    gap: 24px;
 }
 
 .nav-menu a {
     text-decoration: none;
-    color: var(--text-color);
-    font-size: 1rem;
+    color: white;
+    font-size: 18px;
     position: relative;
-    transition: color 0.3s ease;
+    padding-bottom: 5px;
+    transition: color 0.3s; /* Transición de color para enlaces de navegación */
 }
 
-.nav-menu a::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: var(--primary-color);
-    transition: width 0.3s ease;
+.nav-menu a:hover {
+    color: #e1e1e1; /* Color en hover para enlaces */
 }
 
-.nav-menu a:hover::after {
-    width: 100%;
-}
-
-/* Main Content */
+/* Main */
 .dashboard-main {
-    padding: 120px 15px 60px;
+    padding: 40px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.welcome-section {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
 .welcome-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 32px;
+    margin-bottom: 10px;
 }
 
 .welcome-section p {
-    font-size: 1.2rem;
-    color: var(--accent-color);
+    font-size: 20px;
+    color: var(--text-light-color);
+    margin-bottom: 40px;
 }
 
 /* Action Buttons */
 .actions-section {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 40px;
+    justify-content: center;
 }
 
 .action-btn {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: white;
+    padding: 15px 30px;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s; /* Transición para el hover */
 }
 
 .action-btn:hover {
-    background-color: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--button-hover-color); /* Cambio de color en hover */
+}
+
+#join-class-btn, #view-classes-btn {
+    background-color: var(--secondary-color);
+}
+
+#join-class-btn:hover, #view-classes-btn:hover {
+    background-color: var(--button-hover-secondary); /* Cambio de color en hover para botones secundarios */
 }
 
 /* Classes Section */
-.classes-section {
-    margin-bottom: 40px;
-}
-
 .classes-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+    font-size: 26px;
+    color: var(--text-color);
+    margin-bottom: 25px;
     text-align: center;
 }
 
 .classes-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 .class-card {
-    background-color: var(--card-background);
-    padding: 20px;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-.class-card h4 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.class-card p {
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-.class-action-btn {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.class-action-btn:hover {
-    background-color: var(--primary-color);
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones de tarjetas */
+    overflow: hidden;
 }
 
 .class-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.class-card h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.class-card p {
+    font-size: 16px;
+    color: var(--text-light-color);
+}
+
+.class-card .class-action-btn {
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones para el botón de acción */
+}
+
+.class-card .class-action-btn:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-3px); /* Efecto en hover */
 }
 
 /* Progress Section */
-.progress-section {
+.progress-section h3 {
+    font-size: 26px;
+    color: var(--text-color);
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.progress-section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+canvas {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
 /* Footer */
 .dashboard-footer {
-    background-color: rgba(10, 25, 47, 0.7);
-    padding: 20px 0;
+    background-color: var(--primary-color);
+    padding: 30px 0;
     text-align: center;
+    color: white;
+    margin-top: 60px;
+    font-size: 14px;
 }
 
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    color: var(--text-color);
+.dashboard-footer p {
+    margin: 0;
 }
 
-.footer-container p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-}
-
-/* Modal Styling */
+/* Modal */
 .modal {
     display: none;
     position: fixed;
-    top: 0;
+    z-index: 1000;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-    background-color: var(--background-color);
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 500px;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    transition: transform 0.3s; /* Transición para el modal */
 }
 
 .close-btn {
     position: absolute;
     top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
+    right: 10px;
+    font-size: 24px;
+    color: #888;
     cursor: pointer;
-    color: var(--text-color);
 }
 
 .form-group {
     margin-bottom: 20px;
 }
 
-.form-group label {
+label {
+    font-size: 16px;
     display: block;
     margin-bottom: 8px;
-    font-size: 1rem;
     color: var(--text-color);
 }
 
-.form-group input,
-.form-group textarea {
+input, textarea {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    font-size: 1rem;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #dadce0;
+    border-radius: var(--border-radius);
+    background-color: #f5f5f5;
+    transition: border-color 0.3s; /* Transición de color de borde */
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: var(--accent-color);
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
 }
 
 .submit-btn {
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 20px;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    font-size: 16px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* Transición de color de fondo */
 }
 
 .submit-btn:hover {
-    background-color: var(--accent-color);
+    background-color: var(--button-hover-secondary); /* Cambio de color de fondo en hover */
 }
 
-/* Responsive Design */
+/* Mobile Responsive */
 @media (max-width: 768px) {
+    .dashboard-main {
+        padding: 20px;
+    }
+
     .actions-section {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
     }
 
     .classes-container {
         grid-template-columns: 1fr;
     }
+
+    .modal-content {
+        width: 90%;
+    }
 }
+
