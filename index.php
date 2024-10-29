@@ -33,7 +33,7 @@ session_start();
 
         <!-- Sección Beneficios -->
         <section class="benefits slide-left-scroll">
-            <h2>Beneficios de E-Dino Team</h2>
+            <h2>Beneficios de E-Dino</h2>
             <div class="benefit-item">
                 <img src="./assets/images/benefit1.svg" alt="Beneficio 1">
                 <h3>Estudio Flexible</h3>
